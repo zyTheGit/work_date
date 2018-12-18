@@ -1,0 +1,235 @@
+html,
+body,
+.calendar {
+    height: 100%;
+    overflow: hidden;
+    background-color: #eee;
+}
+
+div,
+ul,
+li,
+span,
+p {
+    margin: 0;
+    padding: 0;
+    -webkit-text-size-adjust:none;
+}
+
+.calendar {
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.calendar ul {
+    list-style: none;
+}
+
+.calendar_select {
+    width: 100px;
+    display: inline-block;
+    position: relative;
+    margin-right: 20px;
+}
+
+.calendar_select>ul {
+    display: none;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+    height: 220px;
+    overflow: hidden scroll;
+    background-color: #eee;
+    box-shadow: 1px 1px 10px 2px #666;
+    transition: 1s;
+    animation: myAnimation .5s;
+}
+
+@keyframes myAnimation {
+    0% {
+        top: 70px;
+    }
+
+    100% {
+        top: 55px;
+    }
+}
+
+.calendar_select>ul>li {
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 5px;
+    background-color: #fff;
+}
+
+.calendar_select>ul>li.calendar_active {
+    background-color: #abcffd;
+    color: #fff;
+}
+
+.calendar_select>ul>li:hover {
+    background-color: #0094ff;
+    color: #fff;
+}
+
+.calendar_select .calendar_input {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 1px 1px 10px 2px #666;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+}
+
+.calendar_select .calendar_input::before {
+    position: absolute;
+    right: 5px;
+    top: 15px;
+    border-width: 50px;
+}
+
+.calendar .calendar_content {
+    width: 100%;
+    height: calc(100% - 60px);
+    margin-top: 10px;
+    display: flex;
+    padding: 10px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    overflow: hidden auto;
+    background-color: #fff;
+    /* text-align:center; */
+    justify-content: center;
+}
+
+.calendar_content>div {
+    width: 185px;
+    height: 150px;
+    border-radius: 20px;
+    border: 1px solid #415161;
+    margin-right: 10px;
+    box-shadow: 1px 1px 5px 1px #000;
+    transition: .3s;
+    margin-bottom: 10px;
+}
+
+.calendar_content>div>p {
+    height: 50px;
+    line-height: 50px;
+    padding: 5px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.calendar_content>div>p:before,
+.calendar_content>div>p>span:before {
+    width: 0;
+    height: 0;
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.calendar_content>div>p:after,
+.calendar_content>div>p>span:after {
+    width: 0;
+    height: 0;
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.calendar_content>div>p>span {
+    float: left;
+    display: block;
+    width: 50%;
+    height: 100%;
+}
+
+.calendar_content>div>p>span>font {
+    padding: 5px 7px;
+    border: 1px solid #ddd;
+    font-size: 12px;
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    cursor: pointer;
+    box-shadow: 1px 1px 10px 1px #ddd;
+}
+.calendar_content>div>p:last-child{
+    font-size:18px;
+}
+.calendar_fail b {
+    display: inline-block;
+    width: 46%;
+}
+
+.calendar_fail b:first-child {
+    font-size: 26px;
+    text-align: center;
+}
+
+.calendar_fail b:last-child {
+    font-size: 10px;
+}
+
+/*scroll start*/
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
+::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cdd9e6;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #8ea0b1;
+}
+
+::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+}
+
+::-webkit-scrollbar-corner,
+::-webkit-scrollbar-track:active {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: #8ea0b1;
+}
+
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-track {
+    background-color: #b0c0d0;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track:hover {
+    background: transparent;
+}
+
+::selection {
+    background: #13c19f;
+    color: #fff;
+}
+
+/*scroll end*/
