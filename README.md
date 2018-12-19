@@ -31,6 +31,7 @@
   }
 ```
 ### API
+> 没有必填项
 + `yearValue`  //设置那一年
 + `monthValue`  //设置那一月
 + `dateRange`  //年份范围默认是上下各加减5年,默认是五年，可在new CreateDateControl(yearValue,monthValue,dateRange)
