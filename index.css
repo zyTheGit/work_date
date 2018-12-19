@@ -119,8 +119,8 @@ p {
     margin-bottom: 10px;
 }
 .calendar_content>.calendar_current{
-    box-shadow: 1px 1px 5px 1px #cc4b4b;
-    background-color:#1ef5f5;
+    box-shadow: 1px 1px 5px 1px #8078ef;
+    background-color:#8078ef;
 }
 .calendar_content>div>p {
     height: 50px;

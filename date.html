@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>批量优惠券</title>
+    <title>日期控件</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- <link rel="stylesheet" href="./index.css"> -->
 </head>
@@ -11,11 +11,11 @@
 <body>
     <div class="calendar"></div>
     <!-- <script src="./index.js"></script> -->
-    <script src="./dist/bundle.es5.js"></script>
+    <script src="./dist/bundle.js"></script>
     <script>
         let createDateControl = new CreateDateControl("2018", "12").init();
         createDateControl.btnOneMethods = function (a) {
-            a.changeDom.innerHTML = "迁到";
+            a.changeTextDom.innerHTML = "迁到";
         };
         createDateControl.changeEventCallback = function (e) {
             //切换成功回调事件

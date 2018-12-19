@@ -4,7 +4,7 @@ module.exports = {
     entry: "./index.es5.js",
     mode: 'production',
     output: {
-        filename: "bundle.es5.js",
+        filename: "bundle.js",
         path: path_lib.resolve("dist")
     },
     module: {

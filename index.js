@@ -257,17 +257,21 @@ class CreateDateControl {
                 _this.choiceObj.month = _this.monthValue;
                 _this.choiceObj.week = divCard.querySelectorAll(".calendar_fail b")[1].innerText;
                 _this.choiceObj.day = divCard.querySelectorAll(".calendar_fail b")[0].innerText;
-                _this.choiceObj.changeDom = divCard.querySelector(".card_text");
+                _this.choiceObj.changeTextDom = divCard.querySelector(".card_text");
                 if (target.className.toLowerCase() == 'card_btnone') {
+                    _this.choiceObj.btnDom=target;
                     if (!!_this.btnOneMethods) _this.btnOneMethods(_this.choiceObj);
                     return false;
                 } else if (target.className.toLowerCase() == 'card_btntwo') {
+                    _this.choiceObj.btnDom=target;
                     if (!!_this.btnTwoMethods) _this.btnTwoMethods(_this.choiceObj);
                     return false;
                 } else if (target.className.toLowerCase() == 'card_btnthree') {
+                    _this.choiceObj.btnDom=target;
                     if (!!_this.btnThreeMethods) _this.btnThreeMethods(_this.choiceObj);
                     return false;
                 } else if (target.className.toLowerCase() == 'card_btnfour') {
+                    _this.choiceObj.btnDom=target;
                     if (!!_this.btnFourMethods) _this.btnFourMethods(_this.choiceObj);
                     return false;
                 }
