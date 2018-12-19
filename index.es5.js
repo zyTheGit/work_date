@@ -1,11 +1,10 @@
-
-require("./index.css");
 "use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+require("./index.css");
 
 var CreateDateControl = function () {
     function CreateDateControl() {
@@ -20,15 +19,36 @@ var CreateDateControl = function () {
         this.dayList = [];
         this.yearValue = yearValue;
         this.monthValue = monthValue;
-        this.dateRange = dateRange;
         this.dateFailValue = "";
+        this.dateRange = dateRange; //年份范围默认是上下各加减5年
+        this.isNoDisabledBtn = true; //是否禁用按钮事件
+        this.btnOneMethods = null; //按钮一点击回调
+        this.btnTwoMethods = null; //按钮二点击回调
+        this.btnThreeMethods = null; //按钮三点击回调
+        this.btnFourMethods = null; //按钮四点击回调
+        this.changeEventCallback = null; //切换事件的成功回调
+        this.choiceObj = {}; //某一项卡片返回的内容,包含年月日星期几，和"正常班"的dom元素，可供修改
+        this.currentObj = {}; //当前的年月日
     }
 
     _createClass(CreateDateControl, [{
         key: "init",
         value: function init() {
+            this.currentDate();
             this.createDate();
-            return this.dateFailValue;
+            return this;
+        }
+    }, {
+        key: "currentDate",
+        value: function currentDate() {
+            //当前的年月日
+            var date = new Date();
+            var currentYear = date.getFullYear();
+            var currentMonth = date.getMonth();
+            var currentDate = date.getDate();
+            this.currentObj.year = currentYear;
+            this.currentObj.month = currentMonth + 1;
+            this.currentObj.day = currentDate;
         }
     }, {
         key: "createDate",
@@ -106,14 +126,23 @@ var CreateDateControl = function () {
             var html = "";
             this.dayList = [];
             for (var i = 0; i < dayLength; i++) {
+                var disabledBtn = "";
+                var calendar_current = "";
                 var week = this.getWeek(year, month, i + 1);
-                html += "<div><p><span class =\"calendar_fail\">\n                                <b>" + (i + 1) + "</b>\n                                <b>" + week + "</b>\n                            </span>\n                            <span><font>\u8C03\u73ED</font></span>\n                        </p>\n                        <p><span><font>\u8C03\u4F11</font></span><span><font>\u8865\u7B7E</font></span></p>\n                        <p>\u6B63\u5E38\u73ED</p></div>";
+                if (this.isNoDisabledBtn && this.currentObj.year >= year && this.currentObj.month >= month && this.currentObj.day >= i + 1) {
+                    disabledBtn = " disabledBtn";
+                }
+                if (this.currentObj.year == year && this.currentObj.month == month && this.currentObj.day == i + 1) {
+                    calendar_current = " calendar_current";
+                }
+                html += "<div class=\"calendar_card" + calendar_current + "\">\n                        <p>\n                           <span class =\"calendar_fail\">\n                                <b>" + (i + 1) + "</b>\n                                <b>" + week + "</b>\n                            </span>\n                            <span><font class=\"card_btnOne\">\u8865\u7B7E</font></span>\n                        </p>\n                        <p>\n                            <span><font class=\"card_btnTwo" + disabledBtn + "\">\u8C03\u4F11</font></span>\n                            <span><font class=\"card_btnThree" + disabledBtn + "\">\u8C03\u73ED</font></span>\n                            <span><font class=\"card_btnFour" + disabledBtn + "\">\u8BF7\u5047</font></span>\n                        </p>\n                        <p class=\"card_text\">\u6B63\u5E38\u73ED</p>\n                    </div>";
                 this.dayList.push(i + 1);
             }
             document.querySelector(".calendar_content").innerHTML = html;
             document.querySelector(".year_val").value = this.yearValue + "年";
             document.querySelector(".month_val").value = this.monthValue + "月";
             this.dateFailValue = this.yearValue + "\u5E74-" + this.monthValue + "\u6708";
+            this.elementCreateComplete();
         }
     }, {
         key: "getDay",
@@ -167,7 +196,7 @@ var CreateDateControl = function () {
                     ulYearLi.forEach(function (removeClassLi) {
                         removeClassLi.setAttribute("class", "");
                     });
-                    This.yearValue = this.childNodes[0].innerText;
+                    This.yearValue = parseInt(this.childNodes[0].innerText);
                     this.setAttribute("class", "calendar_active");
                     This.createDay();
                 });
@@ -184,7 +213,7 @@ var CreateDateControl = function () {
                     ulMonthLi.forEach(function (removeClassLi) {
                         removeClassLi.setAttribute("class", "");
                     });
-                    This.monthValue = this.childNodes[0].innerText;
+                    This.monthValue = parseInt(this.childNodes[0].innerText);
                     this.setAttribute("class", "calendar_active");
                     This.createDay();
                 });
@@ -193,7 +222,7 @@ var CreateDateControl = function () {
     }, {
         key: "changeEvent",
         value: function changeEvent() {
-            //切换显示事件
+            //下拉显示事件
             var header_inputList = document.querySelectorAll(".calendar_header input");
             header_inputList.forEach(function (header_input) {
                 header_input.addEventListener("click", function (e) {
@@ -223,6 +252,39 @@ var CreateDateControl = function () {
             };
             this.changeYear();
             this.changeMonth();
+        }
+    }, {
+        key: "elementCreateComplete",
+        value: function elementCreateComplete() {
+            //元素创建完成之后的事件处理
+            var _this = this;
+            Array.from(document.querySelectorAll(".calendar_content .calendar_card")).forEach(function (div) {
+                var divCard = div;
+                div.addEventListener("click", function (e) {
+                    var ev = e || window.e;
+                    var target = ev.target || ev.srcElement;
+                    _this.choiceObj.year = _this.yearValue;
+                    _this.choiceObj.month = _this.monthValue;
+                    _this.choiceObj.week = divCard.querySelectorAll(".calendar_fail b")[1].innerText;
+                    _this.choiceObj.day = divCard.querySelectorAll(".calendar_fail b")[0].innerText;
+                    _this.choiceObj.changeDom = divCard.querySelector(".card_text");
+                    if (target.className.toLowerCase() == 'card_btnone') {
+                        if (!!_this.btnOneMethods) _this.btnOneMethods(_this.choiceObj);
+                        return false;
+                    } else if (target.className.toLowerCase() == 'card_btntwo') {
+                        if (!!_this.btnTwoMethods) _this.btnTwoMethods(_this.choiceObj);
+                        return false;
+                    } else if (target.className.toLowerCase() == 'card_btnthree') {
+                        if (!!_this.btnThreeMethods) _this.btnThreeMethods(_this.choiceObj);
+                        return false;
+                    } else if (target.className.toLowerCase() == 'card_btnfour') {
+                        if (!!_this.btnFourMethods) _this.btnFourMethods(_this.choiceObj);
+                        return false;
+                    }
+                    return false;
+                });
+            });
+            if (!!this.changeEventCallback) this.changeEventCallback(this);
         }
     }]);
 
