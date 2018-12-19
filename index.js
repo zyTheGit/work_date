@@ -7,13 +7,34 @@ class CreateDateControl {
         this.dayList = [];
         this.yearValue = yearValue;
         this.monthValue = monthValue;
-        this.dateRange = dateRange;//年份范围默认是上下5年
         this.dateFailValue = "";
+        this.dateRange = dateRange; //年份范围默认是上下各加减5年
+        this.isNoDisabledBtn = true; //是否禁用按钮事件
+        this.btnOneMethods = null; //按钮一点击回调
+        this.btnTwoMethods = null; //按钮二点击回调
+        this.btnThreeMethods = null; //按钮三点击回调
+        this.btnFourMethods = null; //按钮四点击回调
+        this.changeEventCallback = null; //切换事件的成功回调
+        this.choiceObj = {}; //某一项卡片返回的内容,包含年月日星期几，和"正常班"的dom元素，可供修改
+        this.currentObj = {}; //当前的年月日
     }
     init() {
+        this.currentDate();
         this.createDate();
-        return this.dateFailValue;
+        return this;
     }
+
+    currentDate() {
+        //当前的年月日
+        let date = new Date();
+        let currentYear = date.getFullYear();
+        let currentMonth = date.getMonth();
+        let currentDate = date.getDate();
+        this.currentObj.year = currentYear;
+        this.currentObj.month = currentMonth + 1;
+        this.currentObj.day = currentDate;
+    }
+
     createDate() {
         //生成日期
         let calendar = document.querySelector(".calendar");
@@ -91,22 +112,38 @@ class CreateDateControl {
         let dayLength = this.getDay(year, month);
         let html = "";
         this.dayList = [];
-        for (var i = 0; i < dayLength; i++) {
-            var week = this.getWeek(year, month, i + 1);
-            html += `<div><p><span class ="calendar_fail">
+        for (let i = 0; i < dayLength; i++) {
+            let disabledBtn="";
+            let calendar_current="";
+            let week = this.getWeek(year, month, i + 1);
+            if (this.isNoDisabledBtn && this.currentObj.year >= year && this.currentObj.month >= month && this.currentObj.day >= i + 1) {
+                disabledBtn=" disabledBtn";
+            }
+            if(this.currentObj.year == year && this.currentObj.month == month && this.currentObj.day==i+1){
+                calendar_current=" calendar_current";
+            }
+            html += `<div class="calendar_card${calendar_current}">
+                        <p>
+                           <span class ="calendar_fail">
                                 <b>${i + 1}</b>
                                 <b>${week}</b>
                             </span>
-                            <span><font>调班</font></span>
+                            <span><font class="card_btnOne">补签</font></span>
                         </p>
-                        <p><span><font>调休</font></span><span><font>补签</font></span></p>
-                        <p>正常班</p></div>`;
+                        <p>
+                            <span><font class="card_btnTwo${disabledBtn}">调休</font></span>
+                            <span><font class="card_btnThree${disabledBtn}">调班</font></span>
+                            <span><font class="card_btnFour${disabledBtn}">请假</font></span>
+                        </p>
+                        <p class="card_text">正常班</p>
+                    </div>`;
             this.dayList.push(i + 1);
         }
         document.querySelector(".calendar_content").innerHTML = html;
         document.querySelector(".year_val").value = this.yearValue + "年";
         document.querySelector(".month_val").value = this.monthValue + "月";
         this.dateFailValue = `${this.yearValue}年-${this.monthValue}月`;
+        this.elementCreateComplete();
     }
     getDay(year, month) {
         //获取天数
@@ -154,7 +191,7 @@ class CreateDateControl {
                 ulYearLi.forEach(removeClassLi => {
                     removeClassLi.setAttribute("class", "");
                 });
-                This.yearValue = this.childNodes[0].innerText;
+                This.yearValue = parseInt(this.childNodes[0].innerText);
                 this.setAttribute("class", "calendar_active");
                 This.createDay();
             });
@@ -169,14 +206,14 @@ class CreateDateControl {
                 ulMonthLi.forEach(removeClassLi => {
                     removeClassLi.setAttribute("class", "");
                 });
-                This.monthValue = this.childNodes[0].innerText;
+                This.monthValue = parseInt(this.childNodes[0].innerText);
                 this.setAttribute("class", "calendar_active");
                 This.createDay();
             });
         });
     }
     changeEvent() {
-        //切换显示事件
+        //下拉显示事件
         let header_inputList = document.querySelectorAll(".calendar_header input");
         header_inputList.forEach(header_input => {
             header_input.addEventListener("click", function (e) {
@@ -206,6 +243,38 @@ class CreateDateControl {
         };
         this.changeYear();
         this.changeMonth();
+    }
+
+    elementCreateComplete() {
+        //元素创建完成之后的事件处理
+        let _this = this;
+        Array.from(document.querySelectorAll(".calendar_content .calendar_card")).forEach(div => {
+            let divCard = div;
+            div.addEventListener("click", function (e) {
+                let ev = e || window.e;
+                let target = ev.target || ev.srcElement;
+                _this.choiceObj.year = _this.yearValue;
+                _this.choiceObj.month = _this.monthValue;
+                _this.choiceObj.week = divCard.querySelectorAll(".calendar_fail b")[1].innerText;
+                _this.choiceObj.day = divCard.querySelectorAll(".calendar_fail b")[0].innerText;
+                _this.choiceObj.changeDom = divCard.querySelector(".card_text");
+                if (target.className.toLowerCase() == 'card_btnone') {
+                    if (!!_this.btnOneMethods) _this.btnOneMethods(_this.choiceObj);
+                    return false;
+                } else if (target.className.toLowerCase() == 'card_btntwo') {
+                    if (!!_this.btnTwoMethods) _this.btnTwoMethods(_this.choiceObj);
+                    return false;
+                } else if (target.className.toLowerCase() == 'card_btnthree') {
+                    if (!!_this.btnThreeMethods) _this.btnThreeMethods(_this.choiceObj);
+                    return false;
+                } else if (target.className.toLowerCase() == 'card_btnfour') {
+                    if (!!_this.btnFourMethods) _this.btnFourMethods(_this.choiceObj);
+                    return false;
+                }
+                return false;
+            });
+        });
+        if (!!this.changeEventCallback) this.changeEventCallback(this);
     }
 }
 window.CreateDateControl = CreateDateControl;

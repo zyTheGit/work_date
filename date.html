@@ -13,8 +13,13 @@
     <!-- <script src="./index.js"></script> -->
     <script src="./dist/bundle.js"></script>
     <script>
-        let createDateControl = new CreateDateControl("2018","12");
-        let value = createDateControl.init();
+        let createDateControl = new CreateDateControl("2018", "12").init();
+        createDateControl.btnOneMethods = function (a) {
+            a.changeDom.innerHTML = "迁到";
+        };
+        createDateControl.changeEventCallback = function (e) {
+            //切换成功回调事件
+        }
     </script>
 </body>
 

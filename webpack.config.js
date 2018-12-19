@@ -1,8 +1,8 @@
 let path_lib = require("path");
 
 module.exports = {
-    entry: "./index.es5.js",
-    mode: 'development',
+    entry: "./index.js",
+    mode: 'production',
     output: {
         filename: "bundle.js",
         path: path_lib.resolve("dist")

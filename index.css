@@ -13,7 +13,7 @@ span,
 p {
     margin: 0;
     padding: 0;
-    -webkit-text-size-adjust:none;
+    -webkit-text-size-adjust: none;
 }
 
 .calendar {
@@ -118,7 +118,10 @@ p {
     transition: .3s;
     margin-bottom: 10px;
 }
-
+.calendar_content>.calendar_current{
+    box-shadow: 1px 1px 5px 1px #cc4b4b;
+    background-color:#1ef5f5;
+}
 .calendar_content>div>p {
     height: 50px;
     line-height: 50px;
@@ -152,8 +155,12 @@ p {
     height: 100%;
 }
 
+.calendar_content>div>p:nth-child(2)>span {
+    width: 33%;
+}
+
 .calendar_content>div>p>span>font {
-    padding: 5px 7px;
+    padding: 6px 9px;
     border: 1px solid #ddd;
     font-size: 12px;
     width: 100%;
@@ -161,18 +168,28 @@ p {
     border-radius: 3px;
     cursor: pointer;
     box-shadow: 1px 1px 10px 1px #ddd;
+    user-select: none;
+    background-color:#fff;
 }
-.calendar_content>div>p:last-child{
-    font-size:18px;
+
+.calendar_content>div>p>span>font.disabledBtn {
+    background-color: #ddd;
+    color:#aaa;
 }
-.calendar_fail b {
-    display: inline-block;
-    width: 46%;
+
+.calendar_content>div>p>span>font:not(.disabledBtn):active {
+    box-shadow: 1px 1px 5px 0 #ddd;
+    color: #bbb;
+}
+
+.calendar_content>div>p:last-child {
+    font-size: 18px;
 }
 
 .calendar_fail b:first-child {
     font-size: 26px;
     text-align: center;
+    padding: 0 4px;
 }
 
 .calendar_fail b:last-child {
