@@ -11,6 +11,7 @@ var CreateDateControl = function () {
         var yearValue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
         var monthValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
         var dateRange = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 5;
+        var attendArray = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
 
         _classCallCheck(this, CreateDateControl);
 
@@ -19,7 +20,7 @@ var CreateDateControl = function () {
         this.dayList = [];
         this.yearValue = yearValue;
         this.monthValue = monthValue;
-        this.dateFailValue = "";
+        this.attendArray = attendArray; //返回排班内容,status什么班,shiftsRule班次规则
         this.dateRange = dateRange; //年份范围默认是上下各加减5年
         this.isNoDisabledBtn = true; //是否禁用按钮事件
         this.btnOneMethods = null; //按钮一点击回调
@@ -29,11 +30,23 @@ var CreateDateControl = function () {
         this.changeEventCallback = null; //切换事件的成功回调
         this.choiceObj = {}; //某一项卡片返回的内容,包含年月日星期几，和"正常班"的dom元素，可供修改
         this.currentObj = {}; //当前的年月日
+        this.cardShelves = null; //卡片
+        this.statusContent = ""; //返回卡片状态
+        this.dateFailValue = "";
     }
 
     _createClass(CreateDateControl, [{
         key: "init",
         value: function init() {
+            var yearValue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+            var monthValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+            var dateRange = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 5;
+            var attendArray = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
+
+            this.yearValue = yearValue;
+            this.monthValue = monthValue;
+            this.attendArray = attendArray; //返回排班内容,status什么班,shiftsRule班次规则
+            this.dateRange = dateRange; //年份范围默认是上下各加减5年
             this.currentDate();
             this.createDate();
             return this;
@@ -129,13 +142,21 @@ var CreateDateControl = function () {
                 var disabledBtn = "";
                 var calendar_current = "";
                 var week = this.getWeek(year, month, i + 1);
+                var attendIndex = this.attendArray[i];
+                var shiftsRule = "";
+                var card_special = " card_special";
+                var attendStatus = !!attendIndex && attendIndex.status ? attendIndex.status : "正常班";
+                if (!!attendIndex && attendIndex.shiftsRule) {
+                    shiftsRule = "<b class=\"card_shifts\" title=\"" + attendIndex.shiftsRule + "\">" + attendIndex.shiftsRule + "</b>";
+                    card_special = "";
+                }
                 if (this.isNoDisabledBtn && this.currentObj.year >= year && this.currentObj.month >= month && this.currentObj.day > i + 1) {
                     disabledBtn = " disabledBtn";
                 }
                 if (this.currentObj.year == year && this.currentObj.month == month && this.currentObj.day == i + 1) {
                     calendar_current = " calendar_current";
                 }
-                html += "<div class=\"calendar_card" + calendar_current + "\">\n                        <p>\n                           <span class =\"calendar_fail\">\n                                <b>" + (i + 1) + "</b>\n                                <b>" + week + "</b>\n                            </span>\n                            <span><font class=\"card_btnOne\">\u8865\u7B7E</font></span>\n                        </p>\n                        <p>\n                            <span><font class=\"card_btnTwo" + disabledBtn + "\">\u8C03\u4F11</font></span>\n                            <span><font class=\"card_btnThree" + disabledBtn + "\">\u8C03\u73ED</font></span>\n                            <span><font class=\"card_btnFour" + disabledBtn + "\">\u8BF7\u5047</font></span>\n                        </p>\n                        <p class=\"card_text\">\u6B63\u5E38\u73ED</p>\n                    </div>";
+                html += "<div class=\"calendar_card" + calendar_current + "\">\n                        <p>\n                           <span class =\"calendar_fail\">\n                                <b>" + (i + 1) + "</b>\n                                <b>" + week + "</b>\n                            </span>\n                            <span><font class=\"card_btnOne\">\u8865\u7B7E</font></span>\n                        </p>\n                        <p>\n                            <span><font class=\"card_btnTwo" + disabledBtn + "\">\u8C03\u4F11</font></span>\n                            <span><font class=\"card_btnThree" + disabledBtn + "\">\u8C03\u73ED</font></span>\n                            <span><font class=\"card_btnFour" + disabledBtn + "\">\u8BF7\u5047</font></span>\n                        </p>\n                        <p class=\"card_text\">\n                        " + shiftsRule + "\n                        <b class=\"card_status" + card_special + "\">" + attendStatus + "</b>\n                        </p>\n                    </div>";
                 this.dayList.push(i + 1);
             }
             document.querySelector(".calendar_content").innerHTML = html;

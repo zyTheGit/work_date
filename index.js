@@ -1,13 +1,13 @@
-require("./index.css");
+ require("./index.css");
 
 class CreateDateControl {
-    constructor(yearValue = "", monthValue = "", dateRange = 5) {
+    constructor(yearValue = "", monthValue = "", dateRange = 5, attendArray = []) {
         this.yearList = [];
         this.monthlyList = [];
         this.dayList = [];
         this.yearValue = yearValue;
         this.monthValue = monthValue;
-        this.dateFailValue = "";
+        this.attendArray = attendArray; //返回排班内容,status什么班,shiftsRule班次规则
         this.dateRange = dateRange; //年份范围默认是上下各加减5年
         this.isNoDisabledBtn = true; //是否禁用按钮事件
         this.btnOneMethods = null; //按钮一点击回调
@@ -17,8 +17,15 @@ class CreateDateControl {
         this.changeEventCallback = null; //切换事件的成功回调
         this.choiceObj = {}; //某一项卡片返回的内容,包含年月日星期几，和"正常班"的dom元素，可供修改
         this.currentObj = {}; //当前的年月日
+        this.cardShelves = null; //卡片
+        this.statusContent = ""; //返回卡片状态
+        this.dateFailValue = "";
     }
-    init() {
+    init(yearValue = "", monthValue = "", dateRange = 5, attendArray = []) {
+        this.yearValue = yearValue;
+        this.monthValue = monthValue;
+        this.attendArray = attendArray; //返回排班内容,status什么班,shiftsRule班次规则
+        this.dateRange = dateRange; //年份范围默认是上下各加减5年
         this.currentDate();
         this.createDate();
         return this;
@@ -113,14 +120,22 @@ class CreateDateControl {
         let html = "";
         this.dayList = [];
         for (let i = 0; i < dayLength; i++) {
-            let disabledBtn="";
-            let calendar_current="";
+            let disabledBtn = "";
+            let calendar_current = "";
             let week = this.getWeek(year, month, i + 1);
-            if (this.isNoDisabledBtn && this.currentObj.year >= year && this.currentObj.month >= month && this.currentObj.day > i + 1) {
-                disabledBtn=" disabledBtn";
+            let attendIndex=this.attendArray[i];
+            let shiftsRule ="";
+            let card_special=" card_special";
+            let attendStatus = !!attendIndex && attendIndex.status ? attendIndex.status : "正常班";
+            if(!!attendIndex && attendIndex.shiftsRule){
+                shiftsRule=`<b class="card_shifts" title="${attendIndex.shiftsRule}">${attendIndex.shiftsRule}</b>`;
+                card_special="";
             }
-            if(this.currentObj.year == year && this.currentObj.month == month && this.currentObj.day==i+1){
-                calendar_current=" calendar_current";
+            if (this.isNoDisabledBtn && this.currentObj.year >= year && this.currentObj.month >= month && this.currentObj.day > i + 1) {
+                disabledBtn = " disabledBtn";
+            }
+            if (this.currentObj.year == year && this.currentObj.month == month && this.currentObj.day == i + 1) {
+                calendar_current = " calendar_current";
             }
             html += `<div class="calendar_card${calendar_current}">
                         <p>
@@ -135,7 +150,10 @@ class CreateDateControl {
                             <span><font class="card_btnThree${disabledBtn}">调班</font></span>
                             <span><font class="card_btnFour${disabledBtn}">请假</font></span>
                         </p>
-                        <p class="card_text">正常班</p>
+                        <p class="card_text">
+                        ${shiftsRule}
+                        <b class="card_status${card_special}">${attendStatus}</b>
+                        </p>
                     </div>`;
             this.dayList.push(i + 1);
         }
@@ -259,19 +277,19 @@ class CreateDateControl {
                 _this.choiceObj.day = divCard.querySelectorAll(".calendar_fail b")[0].innerText;
                 _this.choiceObj.changeTextDom = divCard.querySelector(".card_text");
                 if (target.className.toLowerCase() == 'card_btnone') {
-                    _this.choiceObj.btnDom=target;
+                    _this.choiceObj.btnDom = target;
                     if (!!_this.btnOneMethods) _this.btnOneMethods(_this.choiceObj);
                     return false;
                 } else if (target.className.toLowerCase() == 'card_btntwo') {
-                    _this.choiceObj.btnDom=target;
+                    _this.choiceObj.btnDom = target;
                     if (!!_this.btnTwoMethods) _this.btnTwoMethods(_this.choiceObj);
                     return false;
                 } else if (target.className.toLowerCase() == 'card_btnthree') {
-                    _this.choiceObj.btnDom=target;
+                    _this.choiceObj.btnDom = target;
                     if (!!_this.btnThreeMethods) _this.btnThreeMethods(_this.choiceObj);
                     return false;
                 } else if (target.className.toLowerCase() == 'card_btnfour') {
-                    _this.choiceObj.btnDom=target;
+                    _this.choiceObj.btnDom = target;
                     if (!!_this.btnFourMethods) _this.btnFourMethods(_this.choiceObj);
                     return false;
                 }

@@ -4,6 +4,7 @@ body,
     height: 100%;
     overflow: hidden;
     background-color: #eee;
+    font-family: "Microsoft Yahei";
 }
 
 div,
@@ -110,7 +111,7 @@ p {
 
 .calendar_content>div {
     width: 185px;
-    height: 150px;
+    height: 145px;
     border-radius: 20px;
     border: 1px solid #415161;
     margin-right: 10px;
@@ -122,14 +123,39 @@ p {
     box-shadow: 1px 1px 5px 1px #8078ef;
     background-color:#8078ef;
 }
-.calendar_content>div>p {
-    height: 50px;
-    line-height: 50px;
+.calendar_content>div>p:not(last-child){
+    height: 44px;
+    line-height: 44px;
     padding: 5px;
     box-sizing: border-box;
     text-align: center;
 }
-
+.calendar_content>div>p.card_text{
+    height: 55px;
+}
+.calendar_content>div>p.card_text>b{
+    display:block;
+    text-align:center;
+}
+.calendar_content>div>p.card_text>b.card_shifts{
+    width:100%;
+    font-weight:400;
+    font-size:12px;
+    line-height:30px;
+    height:25px;
+    white-space:nowrap; 
+    overflow:hidden; 
+    text-overflow:ellipsis; 
+}
+.calendar_content>div>p.card_text>b.card_status{
+    font: weight 600;
+    font-size:16px;
+    line-height:30px;
+    height:30px;
+}
+.calendar_content>div>p.card_text>b.card_special{
+    line-height:50px!important;
+}
 .calendar_content>div>p:before,
 .calendar_content>div>p>span:before {
     width: 0;

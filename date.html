@@ -13,7 +13,11 @@
     <!-- <script src="./index.js"></script> -->
     <script src="./dist/bundle.js"></script>
     <script>
-        let createDateControl = new CreateDateControl("2018", "12").init();
+        let createDateControl = new CreateDateControl().init("2018", "12",5,[
+            {status:"调休",shiftsRule:"规则一12333333333333333333333333"},
+            {status:"正常班",shiftsRule:"规则2"},
+            {status:"请假",shiftsRule:"规则3"},
+        ]);
         createDateControl.btnOneMethods = function (a) {
             a.changeTextDom.innerHTML = "迁到";
         };
