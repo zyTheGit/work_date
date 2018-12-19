@@ -1,3 +1,4 @@
+[TOC]
 # work_date
 考勤日期控件
 
@@ -30,16 +31,16 @@
   }
 ```
 ### API
-+ yearValue  //设置那一年
-+ monthValue  //设置那一月
-+ dateRange  //年份范围默认是上下各加减5年,默认是五年，可在new CreateDateControl(yearValue,monthValue,dateRange)
-+ isNoDisabledBtn //是否禁用按钮事件
-+ choiceObj //某一项卡片返回的内容,包含年月日星期几，和"正常班"的dom元素，可供修改
-+ currentObj //当前的年月日
-+ btnOneMethods //按钮一点击回调
-+ btnTwoMethods //按钮二点击回调
-+ btnThreeMethods //按钮三点击回调
-+ btnFourMethods //按钮四点击回调
-+ changeEventCallback //切换时事件的成功回调
++ `yearValue`  //设置那一年
++ `monthValue`  //设置那一月
++ `dateRange`  //年份范围默认是上下各加减5年,默认是五年，可在new CreateDateControl(yearValue,monthValue,dateRange)
++ `isNoDisabledBtn` //是否禁用按钮事件
++ `choiceObj` //某一项卡片返回的内容,包含年月日星期几，和"正常班"的dom元素，可供修改
++ `currentObj` //当前的年月日
++ `btnOneMethods` //按钮一点击回调
++ `btnTwoMethods` //按钮二点击回调
++ `btnThreeMethods` //按钮三点击回调
++ `btnFourMethods` //按钮四点击回调
++ `changeEventCallback` //切换时事件的成功回调
 
 
