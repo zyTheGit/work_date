@@ -175,6 +175,7 @@ p {
 .calendar_content>div>p>span>font.disabledBtn {
     background-color: #ddd;
     color:#aaa;
+    cursor:not-allowed;
 }
 
 .calendar_content>div>p>span>font:not(.disabledBtn):active {
