@@ -129,7 +129,7 @@ var CreateDateControl = function () {
                 var disabledBtn = "";
                 var calendar_current = "";
                 var week = this.getWeek(year, month, i + 1);
-                if (this.isNoDisabledBtn && this.currentObj.year >= year && this.currentObj.month >= month && this.currentObj.day >= i + 1) {
+                if (this.isNoDisabledBtn && this.currentObj.year >= year && this.currentObj.month >= month && this.currentObj.day > i + 1) {
                     disabledBtn = " disabledBtn";
                 }
                 if (this.currentObj.year == year && this.currentObj.month == month && this.currentObj.day == i + 1) {
