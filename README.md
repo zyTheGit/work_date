@@ -44,4 +44,4 @@
 + `btnFourMethods` //按钮四点击回调
 + `changeEventCallback` //切换时事件的成功回调
 
-==new CreateDateControl().init()方法返回所有的方法==
+### new CreateDateControl().init()方法返回`this`所有的方法
