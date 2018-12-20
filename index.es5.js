@@ -220,7 +220,11 @@ var CreateDateControl = function () {
                     });
                     This.yearValue = parseInt(this.childNodes[0].innerText);
                     this.setAttribute("class", "calendar_active");
-                    This.createDay();
+                    if (!!This.changeEventCallback) {
+                        This.changeEventCallback(This);
+                    } else {
+                        This.createDay();
+                    }
                 });
             });
         }
@@ -238,13 +242,20 @@ var CreateDateControl = function () {
                     });
                     This.monthValue = parseInt(this.childNodes[0].innerText);
                     this.setAttribute("class", "calendar_active");
-                    This.createDay();
+
+                    if (!!This.changeEventCallback) {
+                        This.changeEventCallback(This);
+                    } else {
+                        This.createDay();
+                    }
                 });
             });
         }
     }, {
         key: "changeEvent",
         value: function changeEvent() {
+            var _this2 = this;
+
             //下拉显示事件
             var header_inputList = document.querySelectorAll(".calendar_header input");
             header_inputList.forEach(function (header_input) {
@@ -268,7 +279,7 @@ var CreateDateControl = function () {
                 });
             });
             document.onclick = function () {
-                this.changenClick = false;
+                _this2.changenClick = false;
                 var ulList = document.querySelectorAll(".calendar_header ul");
                 ulList.forEach(function (ul) {
                     ul.style.display = 'none';
@@ -312,7 +323,6 @@ var CreateDateControl = function () {
                     return false;
                 });
             });
-            if (!!this.changeEventCallback && this.changenClick == true) this.changeEventCallback(this);
         }
     }]);
 

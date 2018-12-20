@@ -222,7 +222,11 @@
                  });
                  This.yearValue = parseInt(this.childNodes[0].innerText);
                  this.setAttribute("class", "calendar_active");
-                 This.createDay();
+                 if (!!This.changeEventCallback) {
+                    This.changeEventCallback(This);
+                }else{
+                    This.createDay();
+                }
              });
          });
      }
@@ -238,7 +242,12 @@
                  });
                  This.monthValue = parseInt(this.childNodes[0].innerText);
                  this.setAttribute("class", "calendar_active");
-                 This.createDay();
+                 
+                if (!!This.changeEventCallback) {
+                    This.changeEventCallback(This);
+                }else{
+                    This.createDay();
+                }
              });
          });
      }
@@ -310,7 +319,6 @@
                  return false;
              });
          });
-         if (!!this.changeEventCallback&&this.changenClick==true) this.changeEventCallback(this);
      }
  }
  window.CreateDateControl = CreateDateControl;
