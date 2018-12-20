@@ -5,6 +5,7 @@
          this.yearList = [];
          this.monthlyList = [];
          this.dayList = [];
+         this.statusContext="正常班";
          this.yearValue = yearValue;
          this.monthValue = monthValue;
          this.attendArray = attendArray; //返回排班内容,status什么班,shiftsRule班次规则
@@ -128,7 +129,7 @@
              let attendIndex = this.attendArray[i];
              let shiftsRule = "";
              let card_special = " card_special";
-             let attendStatus = !!attendIndex && attendIndex.status ? attendIndex.status : "正常班";
+             let attendStatus = !!attendIndex && attendIndex.status ? attendIndex.status : this.statusContext;
              if (!!attendIndex && attendIndex.shiftsRule) {
                  shiftsRule = `<b class="card_shifts" title="${attendIndex.shiftsRule}">${attendIndex.shiftsRule}</b>`;
                  card_special = "";

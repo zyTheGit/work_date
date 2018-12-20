@@ -20,6 +20,7 @@ var CreateDateControl = function () {
         this.dayList = [];
         this.yearValue = yearValue;
         this.monthValue = monthValue;
+        this.statusContext="正常班";
         this.attendArray = attendArray; //返回排班内容,status什么班,shiftsRule班次规则
         this.dateRange = dateRange; //年份范围默认是上下各加减5年
         this.isNoDisabledBtn = true; //是否禁用按钮事件
@@ -148,7 +149,7 @@ var CreateDateControl = function () {
                 var attendIndex = this.attendArray[i];
                 var shiftsRule = "";
                 var card_special = " card_special";
-                var attendStatus = !!attendIndex && attendIndex.status ? attendIndex.status : "正常班";
+                var attendStatus = !!attendIndex && attendIndex.status ? attendIndex.status : this.statusContext;
                 if (!!attendIndex && attendIndex.shiftsRule) {
                     shiftsRule = "<b class=\"card_shifts\" title=\"" + attendIndex.shiftsRule + "\">" + attendIndex.shiftsRule + "</b>";
                     card_special = "";
