@@ -33,6 +33,7 @@ var CreateDateControl = function () {
         this.cardShelves = null; //卡片
         this.statusContent = ""; //返回卡片状态
         this.dateFailValue = "";
+        this.createDate();
     }
 
     _createClass(CreateDateControl, [{
@@ -62,6 +63,8 @@ var CreateDateControl = function () {
             this.currentObj.year = currentYear;
             this.currentObj.month = currentMonth + 1;
             this.currentObj.day = currentDate;
+            if(!this.yearValue)this.yearValue= this.currentObj.year;
+            if(!this.monthValue)this.monthValue= this.currentObj.month;
         }
     }, {
         key: "createDate",
@@ -150,8 +153,18 @@ var CreateDateControl = function () {
                     shiftsRule = "<b class=\"card_shifts\" title=\"" + attendIndex.shiftsRule + "\">" + attendIndex.shiftsRule + "</b>";
                     card_special = "";
                 }
-                if (this.isNoDisabledBtn && this.currentObj.year >= year && this.currentObj.month >= month && this.currentObj.day > i + 1) {
-                    disabledBtn = " disabledBtn";
+                if (this.isNoDisabledBtn && this.currentObj.year >= year) {
+                    if (this.currentObj.year == year && this.currentObj.month >= month) {
+                        if (this.currentObj.month == month) {
+                            if( this.currentObj.day > i + 1){
+                               disabledBtn = " disabledBtn";
+                            }
+                        } else{
+                           disabledBtn = " disabledBtn";
+                        }
+                    } else {
+                        disabledBtn = " disabledBtn";
+                    }
                 }
                 if (this.currentObj.year == year && this.currentObj.month == month && this.currentObj.day == i + 1) {
                     calendar_current = " calendar_current";
