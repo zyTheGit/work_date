@@ -32,17 +32,18 @@
 ```
 ### API
 > 没有必填项
-+ `statusContext`//设置每天卡片底部内容名称，默认是=正常班=
-+ `yearValue`  //设置那一年
-+ `monthValue`  //设置那一月
-+ `dateRange`  //年份范围默认是上下各加减5年,默认是五年，可在new CreateDateControl(yearValue,monthValue,dateRange)
-+ `isNoDisabledBtn` //是否禁用按钮事件
++ `statusContext`//`String`设置每天卡片底部内容名称，默认是=正常班=
++ `yearValue`  //`String`设置那一年
++ `monthValue`  //`String`设置那一月
++ `dateRange`  //`int`年份范围默认是上下各加减5年,默认是五年，可在new CreateDateControl(yearValue,monthValue,dateRange)
++ `isNoDisabledBtn` // `bool`是否禁用按钮事件
 + `choiceObj` //某一项卡片返回的内容,包含年月日星期几，和"正常班"的dom元素，可供修改
-+ `currentObj` //当前的年月日
-+ `btnOneMethods` //按钮一点击回调
-+ `btnTwoMethods` //按钮二点击回调
-+ `btnThreeMethods` //按钮三点击回调
-+ `btnFourMethods` //按钮四点击回调
-+ `changeEventCallback` //切换时事件的成功回调
++ `currentObj` //`Object`当前的年月日
++ `btnOneMethods` //`function`按钮一点击回调
++ `btnTwoMethods` //`function`按钮二点击回调
++ `btnThreeMethods` //`function`按钮三点击回调
++ `btnFourMethods` //`function`按钮四点击回调
++ `changeEventCallback` //`function`切换时事件的成功回调
++ `attendArray` //`Array`返回排班内容,status什么班,shiftsRule班次规则
 
 ### `new CreateDateControl().init(option)`方法返回`this`所有的方法
