@@ -216,6 +216,7 @@
          let This = this;
          ulYearLi.forEach(li => {
              li.addEventListener("click", function (e) {
+                This.changenClick=true;
                  ulYearLi.forEach(removeClassLi => {
                      removeClassLi.setAttribute("class", "");
                  });
@@ -231,6 +232,7 @@
          let This = this;
          ulMonthLi.forEach(li => {
              li.addEventListener("click", function (e) {
+                 This.changenClick=true;
                  ulMonthLi.forEach(removeClassLi => {
                      removeClassLi.setAttribute("class", "");
                  });
@@ -264,10 +266,12 @@
              });
          });
          document.onclick = () => {
+            this.changenClick=false;
              let ulList = document.querySelectorAll(".calendar_header ul");
              ulList.forEach(ul => {
                  ul.style.display = 'none';
              });
+
          };
          this.changeYear();
          this.changeMonth();
@@ -306,7 +310,7 @@
                  return false;
              });
          });
-         if (!!this.changeEventCallback) this.changeEventCallback(this);
+         if (!!this.changeEventCallback&&this.changenClick==true) this.changeEventCallback(this);
      }
  }
  window.CreateDateControl = CreateDateControl;
