@@ -8,7 +8,7 @@
          this.statusContext="正常班";
          this.yearValue = "";
          this.monthValue = "";
-         this.attendArray = ""; //返回排班内容,status什么班,shiftsRule班次规则
+         this.attendArray = []; //返回排班内容,status什么班,shiftsRule班次规则
          this.dateRange = 5; //年份范围默认是上下各加减5年
          this.isNoDisabledBtn = true; //是否禁用按钮事件
          this.btnOneMethods = null; //按钮一点击回调
