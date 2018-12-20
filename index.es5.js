@@ -8,21 +8,16 @@ require("./index.css");
 
 var CreateDateControl = function () {
     function CreateDateControl() {
-        var yearValue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-        var monthValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-        var dateRange = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 5;
-        var attendArray = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
-
         _classCallCheck(this, CreateDateControl);
 
         this.yearList = [];
         this.monthlyList = [];
         this.dayList = [];
-        this.yearValue = yearValue;
-        this.monthValue = monthValue;
-        this.statusContext="正常班";
-        this.attendArray = attendArray; //返回排班内容,status什么班,shiftsRule班次规则
-        this.dateRange = dateRange; //年份范围默认是上下各加减5年
+        this.statusContext = "正常班";
+        this.yearValue = "";
+        this.monthValue = "";
+        this.attendArray = ""; //返回排班内容,status什么班,shiftsRule班次规则
+        this.dateRange = 5; //年份范围默认是上下各加减5年
         this.isNoDisabledBtn = true; //是否禁用按钮事件
         this.btnOneMethods = null; //按钮一点击回调
         this.btnTwoMethods = null; //按钮二点击回调
@@ -34,21 +29,12 @@ var CreateDateControl = function () {
         this.cardShelves = null; //卡片
         this.statusContent = ""; //返回卡片状态
         this.dateFailValue = "";
-        this.createDate();
+        this.currentDate();
     }
 
     _createClass(CreateDateControl, [{
         key: "init",
         value: function init() {
-            var yearValue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-            var monthValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-            var dateRange = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 5;
-            var attendArray = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
-
-            this.yearValue = yearValue;
-            this.monthValue = monthValue;
-            this.attendArray = attendArray; //返回排班内容,status什么班,shiftsRule班次规则
-            this.dateRange = dateRange; //年份范围默认是上下各加减5年
             this.currentDate();
             this.createDate();
             return this;
@@ -64,8 +50,8 @@ var CreateDateControl = function () {
             this.currentObj.year = currentYear;
             this.currentObj.month = currentMonth + 1;
             this.currentObj.day = currentDate;
-            if(!this.yearValue)this.yearValue= this.currentObj.year;
-            if(!this.monthValue)this.monthValue= this.currentObj.month;
+            if (!this.yearValue) this.yearValue = this.currentObj.year;
+            if (!this.monthValue) this.monthValue = this.currentObj.month;
         }
     }, {
         key: "createDate",
@@ -157,11 +143,11 @@ var CreateDateControl = function () {
                 if (this.isNoDisabledBtn && this.currentObj.year >= year) {
                     if (this.currentObj.year == year && this.currentObj.month >= month) {
                         if (this.currentObj.month == month) {
-                            if( this.currentObj.day > i + 1){
-                               disabledBtn = " disabledBtn";
+                            if (this.currentObj.day > i + 1) {
+                                disabledBtn = " disabledBtn";
                             }
-                        } else{
-                           disabledBtn = " disabledBtn";
+                        } else {
+                            disabledBtn = " disabledBtn";
                         }
                     } else {
                         disabledBtn = " disabledBtn";

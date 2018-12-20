@@ -1,15 +1,15 @@
  require("./index.css");
 
  class CreateDateControl {
-     constructor(yearValue = "", monthValue = "", dateRange = 5, attendArray = []) {
+     constructor() {
          this.yearList = [];
          this.monthlyList = [];
          this.dayList = [];
          this.statusContext="正常班";
-         this.yearValue = yearValue;
-         this.monthValue = monthValue;
-         this.attendArray = attendArray; //返回排班内容,status什么班,shiftsRule班次规则
-         this.dateRange = dateRange; //年份范围默认是上下各加减5年
+         this.yearValue = "";
+         this.monthValue = "";
+         this.attendArray = ""; //返回排班内容,status什么班,shiftsRule班次规则
+         this.dateRange = 5; //年份范围默认是上下各加减5年
          this.isNoDisabledBtn = true; //是否禁用按钮事件
          this.btnOneMethods = null; //按钮一点击回调
          this.btnTwoMethods = null; //按钮二点击回调
@@ -23,11 +23,8 @@
          this.dateFailValue = "";
          this.currentDate();
      }
-     init(yearValue = "", monthValue = "", dateRange = 5, attendArray = []) {
-         this.yearValue = yearValue;
-         this.monthValue = monthValue;
-         this.attendArray = attendArray; //返回排班内容,status什么班,shiftsRule班次规则
-         this.dateRange = dateRange; //年份范围默认是上下各加减5年
+     init() {
+         this.currentDate();
          this.createDate();
          return this;
      }
