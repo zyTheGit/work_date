@@ -43,7 +43,7 @@
 + `btnTwoMethods` //`function`按钮二点击回调
 + `btnThreeMethods` //`function`按钮三点击回调
 + `btnFourMethods` //`function`按钮四点击回调
-+ `changeEventCallback` //`function`切换时事件的成功回调
++ `changeEventCallback` //`function`切换时事件的成功回调,如果写了改变事件的回调，需再执行`createDay`的方法
 + `attendArray` //`Array`返回排班内容,status什么班,shiftsRule班次规则{status,shiftRule}（必须是当月有多少天，数组长度就对应多少）
 
 ### `new CreateDateControl().init(option)`方法返回`this`所有的方法
