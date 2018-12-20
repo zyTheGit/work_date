@@ -6,7 +6,7 @@
 
 ![Image text](https://github.com/zyTheGit/work_date/blob/master/img/chioceStyle.png)
 
-### 实用步骤
+### 使用步骤
 ### 页面直接引用 `dist/bundle.js`
 + body部门
 ```
