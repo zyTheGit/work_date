@@ -8,6 +8,7 @@
 
 ### 使用步骤
 ### 页面直接引用 `dist/bundle.js`
+> `bundle.js`是`webpack`打包的开发者文件，源码js文件查看`index.js`
 + body部门
 ```
 <body>
