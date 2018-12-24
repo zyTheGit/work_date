@@ -1,8 +1,8 @@
 let path_lib = require("path");
 
 module.exports = {
-    entry: "./index.es5.js",
-    mode:"development", //production,developemnt
+    entry: "./index.js",
+    mode: "development", //production,developemnt
     output: {
         filename: "bundle.js",
         path: path_lib.resolve("dist")
@@ -20,6 +20,10 @@ module.exports = {
                     }
                 }
             ]
+        }, {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: "babel-loader"
         }]
     }
 };
