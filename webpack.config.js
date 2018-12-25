@@ -1,13 +1,10 @@
 let path_lib = require("path");
 
 module.exports = {
-    entry: {
-        app: "./index.js",
-        ieApp: "./index.ie.js"
-    },
+    entry: "./index.js",
     mode: "development", //production,developemnt
     output: {
-        filename: "[name].bundle.js",
+        filename: "bundle.js",
         path: path_lib.resolve(__dirname, "dist")
     },
     module: {
