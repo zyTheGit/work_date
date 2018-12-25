@@ -250,14 +250,13 @@
                  event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
              });
          });
-         document.onclick = () => {
+         document.addEventListener("click", () => {
              this.changenClick = false;
              let ulList = document.querySelectorAll(".calendar_header ul");
              Array.from(ulList).forEach(ul => {
                  ul.style.display = 'none';
              });
-
-         };
+         });
          this.changeYear();
          this.changeMonth();
      }
