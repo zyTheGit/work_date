@@ -40,7 +40,8 @@ p {
     width: 100%;
     border: 1px solid #ddd;
     height: 220px;
-    overflow: hidden scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
     background-color: #eee;
     box-shadow: 1px 1px 10px 2px #666;
     transition: 1s;
@@ -103,7 +104,8 @@ p {
     padding: 10px;
     box-sizing: border-box;
     flex-wrap: wrap;
-    overflow: hidden auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     background-color: #fff;
     /* text-align:center; */
     justify-content: center;
@@ -119,43 +121,51 @@ p {
     transition: .3s;
     margin-bottom: 10px;
 }
-.calendar_content>.calendar_current{
+
+.calendar_content>.calendar_current {
     box-shadow: 1px 1px 5px 1px #8078ef;
-    background-color:#8078ef;
+    background-color: #8078ef;
 }
-.calendar_content>div>p:not(last-child){
+
+.calendar_content>div>p:not(last-child) {
     height: 44px;
     line-height: 44px;
     padding: 5px;
     box-sizing: border-box;
     text-align: center;
 }
-.calendar_content>div>p.card_text{
+
+.calendar_content>div>p.card_text {
     height: 55px;
 }
-.calendar_content>div>p.card_text>b{
-    display:block;
-    text-align:center;
+
+.calendar_content>div>p.card_text>b {
+    display: block;
+    text-align: center;
 }
-.calendar_content>div>p.card_text>b.card_shifts{
-    width:100%;
-    font-weight:400;
-    font-size:12px;
-    line-height:30px;
-    height:25px;
-    white-space:nowrap; 
-    overflow:hidden; 
-    text-overflow:ellipsis; 
+
+.calendar_content>div>p.card_text>b.card_shifts {
+    width: 100%;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 30px;
+    height: 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-.calendar_content>div>p.card_text>b.card_status{
+
+.calendar_content>div>p.card_text>b.card_status {
     font: weight 600;
-    font-size:16px;
-    line-height:30px;
-    height:30px;
+    font-size: 16px;
+    line-height: 30px;
+    height: 30px;
 }
-.calendar_content>div>p.card_text>b.card_special{
-    line-height:50px!important;
+
+.calendar_content>div>p.card_text>b.card_special {
+    line-height: 50px !important;
 }
+
 .calendar_content>div>p:before,
 .calendar_content>div>p>span:before {
     width: 0;
@@ -195,13 +205,13 @@ p {
     cursor: pointer;
     box-shadow: 1px 1px 10px 1px #ddd;
     user-select: none;
-    background-color:#fff;
+    background-color: #fff;
 }
 
 .calendar_content>div>p>span>font.disabledBtn {
     background-color: #ddd;
-    color:#aaa;
-    cursor:not-allowed;
+    color: #aaa;
+    cursor: not-allowed;
 }
 
 .calendar_content>div>p>span>font:not(.disabledBtn):active {
