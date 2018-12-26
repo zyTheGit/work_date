@@ -22,9 +22,9 @@
          this.statusContent = ""; //返回卡片状态
          this.dateFailValue = "";
          this.arrayFormOrforEach();
+         this.currentDate();
      }
      init() {
-         this.currentDate();
          this.createDate();
          return this;
      }

@@ -47,12 +47,12 @@ var CreateDateControl = function () {
         this.statusContent = ""; //返回卡片状态
         this.dateFailValue = "";
         this.arrayFormOrforEach();
+        this.currentDate();
     }
 
     _createClass(CreateDateControl, [{
         key: "init",
         value: function init() {
-            this.currentDate();
             this.createDate();
             return this;
         }
