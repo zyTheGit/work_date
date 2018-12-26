@@ -1,7 +1,8 @@
 
 # work_date
 考勤日期控件
-
+### 兼容性
++ 可支持ie 10 11 
 ![Image text](https://github.com/zyTheGit/work_date/blob/master/img/date_img.png)
 
 ![Image text](https://github.com/zyTheGit/work_date/blob/master/img/chioceStyle.png)
